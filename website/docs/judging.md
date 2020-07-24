@@ -9,7 +9,7 @@ Each of you will receive an emailed link to judge either CNC, speech, speech in 
 
 ## Round 2
 
-Each of you will receive an emailed link to judge either CNC, speech, speech in noise, or music entries using a survey platform. In Round 2 you will be asked to listen to two entries and choose the better of the two.
+Each of you will receive an emailed link to judge either CNC, speech, speech in noise, or music entries using a survey platform. In Round 2 you will be asked to listen to two entries and choose the better of the two until there is a clear winner for that subset of sounds.
 
 ## Review by team and code review
 
