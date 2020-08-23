@@ -32,12 +32,12 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://master.d1k5pqsgfrsgrv.amplifyapp.com/profile/',
+          href: 'https://master.d2sumv6atptlsd.amplifyapp.com/profile/',
           label: 'Register',
           position: 'right',
         },
         {
-          href: 'https://master.d1k5pqsgfrsgrv.amplifyapp.com/profile/',
+          href: 'https://master.d2sumv6atptlsd.amplifyapp.com/profile/',
           label: 'Login',
           position: 'right',
         },
