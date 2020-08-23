@@ -87,6 +87,9 @@ export default function Algorithms() {
         label,
         attachment: attachment || algorithm.attachment,
       });
+      await saveAlgorithm(function StatusCompletedSucceeded() {
+        window.location.reload();
+      });
       history.push("/algorithms");
     } catch (e) {
       logger.debug(e);
