@@ -11,7 +11,7 @@ import Protected from "./containers/Protected";
 import Algorithms from "./containers/Algorithms";
 import AlgorithmList from "./containers/AlgorithmList";
 import NewAlgorithm from "./containers/NewAlgorithm";
-import { API, Auth, Logger } from "aws-amplify";
+import { Auth, Logger } from "aws-amplify";
 
 const logger = new Logger("Router", "DEBUG");
 
@@ -20,10 +20,8 @@ const Router = () => {
   const history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [isLoadingAlgorithms, setIsLoadingAlgorithms] = useState(true);
   const [user, setUser] = useState({});
   const [current, setCurrent] = useState("home");
-  const [algorithms, setAlgorithms] = useState([]);
 
   useEffect(() => {
     onLoad();
@@ -39,24 +37,17 @@ const Router = () => {
   }
 
   async function onLoad() {
-    function loadAlgorithms() {
-      logger.debug("loadAlgorithms");
-      return API.get("algorithms", "/algorithms");
-    }
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
       const data = await Auth.currentUserPoolUser();
       setUser({ username: data.username, ...data.attributes });
-      const algorithms = await loadAlgorithms();
-      setAlgorithms(algorithms);
     } catch (e) {
       if (e !== "No current user") {
         logger.debug(e);
       }
     }
     setIsAuthenticating(false);
-    setIsLoadingAlgorithms(false);
   }
 
   return (
@@ -69,10 +60,7 @@ const Router = () => {
                 setIsAuthenticating: setIsAuthenticating,
                 userHasAuthenticated: userHasAuthenticated,
                 user: user,
-                setUser: setUser,
-                algorithms: algorithms,
-                isLoadingAlgorithms: isLoadingAlgorithms,
-                setIsLoadingAlgorithms: setIsLoadingAlgorithms,
+                setUser: setUser
             }}
         >
         <NavMenu current={current} />

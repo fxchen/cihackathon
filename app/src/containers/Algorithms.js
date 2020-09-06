@@ -82,7 +82,6 @@ export default function Algorithms() {
       if (file.current) {
         attachment = await s3Upload(file.current);
       }
-
       await saveAlgorithm({
         label,
         attachment: attachment || algorithm.attachment,

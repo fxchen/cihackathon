@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Logger } from "aws-amplify";
+import React, { useState, useEffect } from "react";
+import { API, Logger } from "aws-amplify";
 import { LinkContainer } from "react-router-bootstrap";
 import { ListGroup, ListGroupItem, Button, Row, Col } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
@@ -10,45 +10,35 @@ import { FaPlus } from "react-icons/fa";
 
 const logger = new Logger("AlgorithmList", "DEBUG");
 
-export default function AlgorithmList() {
-  const { isLoadingAlgorithms, setIsLoadingAlgorithms, algorithms, user } = useAppContext();
-  // const [algorithms, setAlgorithms] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  //setIsLoading(true); // force state change
+export default function AlgorithmList(props) {
+  const { isAuthenticated } = useAppContext();
+  const [algorithms, setAlgorithms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    logger.debug("algorithms:" + algorithms)
-    logger.debug(user);
-  }, [isLoadingAlgorithms, setIsLoadingAlgorithms, algorithms, user])
+    function loadAlgorithms() {
+      logger.debug("API: loadAlgorithms");
+      return API.get("algorithms", "/algorithms");
+    }
 
-  // useEffect(() => {
-  //   function loadAlgorithms() {
-  //     logger.debug("loadAlgorithms");
-  //     return API.get("algorithms", "/algorithms");
-  //   }
+    async function onLoad() {
+      if (!isAuthenticated) {
+        return;
+      }
+      try {
+        const algorithms = await loadAlgorithms();
+        setAlgorithms(algorithms);
+        //logger.debug(algorithms);
+      } catch (e) {
+        logger.debug(e);
+      }
+      setIsLoading(false);
+    }
 
-  //   async function onLoad() {
-  //     if (!isAuthenticated) {
-  //       return;
-  //     }
-  //     try {
-  //       const algorithms = await loadAlgorithms();
-  //       setAlgorithms(algorithms);
-  //       //logger.debug(algorithms);
-  //     } catch (e) {
-  //       logger.debug(e);
-  //     }
-  //     setIsLoading(false);
-  //     logger.debug("4. leave useEffect");
-  //   }
-
-  //   onLoad();
-  // }, [isAuthenticated]);
-  //}, [isAuthenticated, isLoading, props]);
+    onLoad();
+  }, [isAuthenticated, isLoading, props]);
 
   function renderAlgorithmsList(algorithms) {
-    logger.debug("5. renderAlgorithmsList");
     return [{}].concat(algorithms).map(
       (algorithm, i) =>
         i !== 0 && (
@@ -94,7 +84,7 @@ export default function AlgorithmList() {
                   </Col>
                 </Row>
               </ListGroupItem>
-              {!isLoadingAlgorithms && renderAlgorithmsList(algorithms)}
+              {!isLoading && renderAlgorithmsList(algorithms)}
             </ListGroup>
           </div>
         </div>
