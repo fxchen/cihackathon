@@ -107,6 +107,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  hello:
+    # Note we're using a different runtime for the vocoder api
+    handler: vocoder/hello.handler
+    runtime: python3.6
+    events:
+      - http:
+          method: get
+          path: hello
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors

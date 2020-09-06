@@ -1,6 +1,6 @@
 # Serverless Starter for CI Hackathon
 
-This directory contains serveless configuration and functions for the CI Hackathon backend.
+This directory contains serverless configuration and functions for the CI Hackathon backend including the webapp and the vocoder.
 
 ### libs
 Libraries for NodeJS serverless Lambda functions for working with S3, DynamoDB, Cognito, etc...
@@ -19,6 +19,12 @@ There are going to be cases where you might want to deploy just a single API end
 For example, to deploy the list function again, we can run the following.
 
 `$ serverless deploy function -f FUNCTION_NAME`
+
+## Test a Single Function
+
+To invoke a function using mocked data, we use the following,
+
+`serverless invoke local --function create --path mocks/create-event.json`
 
 ### AWS Configuration
 
