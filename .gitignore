@@ -7,6 +7,9 @@ package-lock.json
 
 # dependencies
 node_modules
+venv
+.serverless
+__pycache__
 
 # testing
 coverage
