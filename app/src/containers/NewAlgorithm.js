@@ -14,7 +14,7 @@ export default function NewAlgorithm() {
   const file = useRef(null);
   const history = useHistory();
   const [label, setLabel] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
 
   function validateForm() {
     return label.length > 0;
@@ -29,31 +29,30 @@ export default function NewAlgorithm() {
 
     if (file.current && file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(
-        `Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE / 1000000} MB.`
+        `Please pick a file smaller than ${
+          config.MAX_ATTACHMENT_SIZE / 1000000
+        } MB.`
       );
       return;
     }
 
-    setIsLoading(true);
+    setIsCreating(true);
 
     try {
       const attachment = file.current ? await s3Upload(file.current) : null;
       await createAlgorithm({ label, attachment });
       logger.debug("Success:" + label);
-      setIsLoading(false);
       history.push("/algorithms");
     } catch (e) {
       logger.debug("Error in createAlgorithm:" + e);
-      setIsLoading(false);
+      setIsCreating(false);
     }
   }
 
   function createAlgorithm(algorithm) {
-    logger.debug(algorithm);
-    var res = API.post("algorithms", "/algorithms", {
+    return API.post("algorithms", "/algorithms", {
       body: algorithm,
     });
-    logger.debug(res);
   }
 
   return (
@@ -75,7 +74,7 @@ export default function NewAlgorithm() {
             type="submit"
             //bsSize="large"
             //bsStyle="primary"
-            isLoading={isLoading}
+            isLoading={isCreating}
             disabled={!validateForm()}
           >
             Create

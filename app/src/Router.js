@@ -60,7 +60,7 @@ const Router = () => {
                 setIsAuthenticating: setIsAuthenticating,
                 userHasAuthenticated: userHasAuthenticated,
                 user: user,
-                setUser: setUser,
+                setUser: setUser
             }}
         >
         <NavMenu current={current} />
@@ -68,7 +68,7 @@ const Router = () => {
             <Switch>
               <Route exact path="/" component={Public} />
               <Route exact path="/protected" component={Protected} />
-              <Route exact path="/algorithms" component={AlgorithmList} />
+              <Route exact path="/algorithms" component={AlgorithmList} /> 
               <Route exact path="/algorithms/:id" component={Algorithms} />
               <Route exact path="/create" component={NewAlgorithm} />
               <Route exact path="/profile" component={Profile} />

@@ -82,7 +82,6 @@ export default function Algorithms() {
       if (file.current) {
         attachment = await s3Upload(file.current);
       }
-
       await saveAlgorithm({
         label,
         attachment: attachment || algorithm.attachment,
@@ -128,7 +127,7 @@ export default function Algorithms() {
             <FormGroup controlId="label">
               <FormControl
                 value={label}
-                componentClass="textarea"
+                componentclass="textarea"
                 onChange={(e) => setLabel(e.target.value)}
               />
             </FormGroup>
