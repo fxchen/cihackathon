@@ -118,6 +118,30 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/cihackathon-pyapi-dev*:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:DescribeTable",
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:DeleteItem"
+                  ],
+                  "Resource": "arn:aws:dynamodb:us-east-2:170914556599:table/algorithms"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "s3:PutObject"
+                  ],
+                  "Resource": [
+                    "arn:aws:s3:::*"
+                  ]
                 }
               ]
             }
@@ -146,7 +170,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/cihackathon-pyapi/dev/1600202827430-2020-09-15T20:47:07.430Z/cihackathon-pyapi.zip"
+          "S3Key": "serverless/cihackathon-pyapi/dev/1600206498503-2020-09-15T21:48:18.503Z/cihackathon-pyapi.zip"
         },
         "FunctionName": "cihackathon-pyapi-dev-hello",
         "Handler": "hello.handler",
@@ -164,14 +188,14 @@
         "HelloLogGroup"
       ]
     },
-    "HelloLambdaVersionpMm0pUrMAI8ex6Xdi0Crt48e9hzyPNqH6f6wnGU4": {
+    "HelloLambdaVersionxDYO1dND2ly5Oxdlr5V4fJq4VydldRlnjd1os9SY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "p8beSmZSk9/J86EdkhHYTkikS48SpHwxdUqIdcvZYoQ="
+        "CodeSha256": "1XQx6cdxwXNg7Vk0YIFn4RS7IWwIUxQy3xOeSiKjXqU="
       }
     },
     "ApiGatewayRestApi": {
@@ -244,7 +268,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1600202770757": {
+    "ApiGatewayDeployment1600206440073": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -318,6 +342,31 @@
           "Ref": "ApiGatewayRestApi"
         }
       }
+    },
+    "VocoderBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedOrigins": [
+                "*"
+              ],
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "PUT",
+                "POST",
+                "DELETE",
+                "HEAD"
+              ],
+              "MaxAge": 3000
+            }
+          ]
+        }
+      }
     }
   },
   "Outputs": {
@@ -329,7 +378,7 @@
     "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersionpMm0pUrMAI8ex6Xdi0Crt48e9hzyPNqH6f6wnGU4"
+        "Ref": "HelloLambdaVersionxDYO1dND2ly5Oxdlr5V4fJq4VydldRlnjd1os9SY"
       }
     },
     "ServiceEndpoint": {
@@ -353,6 +402,11 @@
             "/dev"
           ]
         ]
+      }
+    },
+    "VocoderBucketName": {
+      "Value": {
+        "Ref": "VocoderBucket"
       }
     }
   }

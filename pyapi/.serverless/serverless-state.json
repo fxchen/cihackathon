@@ -10,6 +10,32 @@
       "name": "aws",
       "runtime": "python3.6",
       "region": "us-east-2",
+      "iamRoleStatements": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:DescribeTable",
+            "dynamodb:Query",
+            "dynamodb:Scan",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:UpdateItem",
+            "dynamodb:DeleteItem"
+          ],
+          "Resource": "arn:aws:dynamodb:us-east-2:170914556599:table/algorithms"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject",
+            "s3:ListBucket",
+            "s3:PutObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::*"
+          ]
+        }
+      ],
       "versionFunctions": true,
       "remoteFunctionData": null,
       "compiledCloudFormationTemplate": {
@@ -132,6 +158,12 @@
                             "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/cihackathon-pyapi-dev*:*:*"
                           }
                         ]
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][0]"
+                      },
+                      {
+                        "$ref": "$[\"service\"][\"provider\"][\"iamRoleStatements\"][1]"
                       }
                     ]
                   }
@@ -160,7 +192,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/cihackathon-pyapi/dev/1600202827430-2020-09-15T20:47:07.430Z/cihackathon-pyapi.zip"
+                "S3Key": "serverless/cihackathon-pyapi/dev/1600206498503-2020-09-15T21:48:18.503Z/cihackathon-pyapi.zip"
               },
               "FunctionName": "cihackathon-pyapi-dev-hello",
               "Handler": "hello.handler",
@@ -178,14 +210,14 @@
               "HelloLogGroup"
             ]
           },
-          "HelloLambdaVersionpMm0pUrMAI8ex6Xdi0Crt48e9hzyPNqH6f6wnGU4": {
+          "HelloLambdaVersionxDYO1dND2ly5Oxdlr5V4fJq4VydldRlnjd1os9SY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "p8beSmZSk9/J86EdkhHYTkikS48SpHwxdUqIdcvZYoQ="
+              "CodeSha256": "1XQx6cdxwXNg7Vk0YIFn4RS7IWwIUxQy3xOeSiKjXqU="
             }
           },
           "ApiGatewayRestApi": {
@@ -258,7 +290,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1600202770757": {
+          "ApiGatewayDeployment1600206440073": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -332,6 +364,31 @@
                 "Ref": "ApiGatewayRestApi"
               }
             }
+          },
+          "VocoderBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "CorsConfiguration": {
+                "CorsRules": [
+                  {
+                    "AllowedOrigins": [
+                      "*"
+                    ],
+                    "AllowedHeaders": [
+                      "*"
+                    ],
+                    "AllowedMethods": [
+                      "GET",
+                      "PUT",
+                      "POST",
+                      "DELETE",
+                      "HEAD"
+                    ],
+                    "MaxAge": 3000
+                  }
+                ]
+              }
+            }
           }
         },
         "Outputs": {
@@ -343,7 +400,7 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionpMm0pUrMAI8ex6Xdi0Crt48e9hzyPNqH6f6wnGU4"
+              "Ref": "HelloLambdaVersionxDYO1dND2ly5Oxdlr5V4fJq4VydldRlnjd1os9SY"
             }
           },
           "ServiceEndpoint": {
@@ -367,6 +424,11 @@
                   "/dev"
                 ]
               ]
+            }
+          },
+          "VocoderBucketName": {
+            "Value": {
+              "Ref": "VocoderBucket"
             }
           }
         }
@@ -471,7 +533,7 @@
         "timeout": 6,
         "runtime": "python3.6",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionpMm0pUrMAI8ex6Xdi0Crt48e9hzyPNqH6f6wnGU4"
+        "versionLogicalId": "HelloLambdaVersionxDYO1dND2ly5Oxdlr5V4fJq4VydldRlnjd1os9SY"
       }
     },
     "resources": {
@@ -501,9 +563,40 @@
               "Ref": "ApiGatewayRestApi"
             }
           }
+        },
+        "VocoderBucket": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "CorsConfiguration": {
+              "CorsRules": [
+                {
+                  "AllowedOrigins": [
+                    "*"
+                  ],
+                  "AllowedHeaders": [
+                    "*"
+                  ],
+                  "AllowedMethods": [
+                    "GET",
+                    "PUT",
+                    "POST",
+                    "DELETE",
+                    "HEAD"
+                  ],
+                  "MaxAge": 3000
+                }
+              ]
+            }
+          }
         }
       },
-      "Outputs": {}
+      "Outputs": {
+        "VocoderBucketName": {
+          "Value": {
+            "Ref": "VocoderBucket"
+          }
+        }
+      }
     },
     "serviceFilename": "serverless.yml",
     "layers": {},
@@ -511,7 +604,7 @@
     "artifact": "/Users/krismerrill/workspace/cihackathon/pyapi/.serverless/cihackathon-pyapi.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/cihackathon-pyapi/dev/1600202827430-2020-09-15T20:47:07.430Z",
+    "artifactDirectoryName": "serverless/cihackathon-pyapi/dev/1600206498503-2020-09-15T21:48:18.503Z",
     "artifact": "cihackathon-pyapi.zip"
   }
 }

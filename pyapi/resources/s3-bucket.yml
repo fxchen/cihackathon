@@ -1,5 +1,5 @@
 Resources:
-  AttachmentsBucket:
+  VocoderBucket:
     Type: AWS::S3::Bucket
     Properties:
       # Set the CORS policy
@@ -19,6 +19,6 @@ Resources:
 
 # Print out the name of the bucket that is created
 Outputs:
-  AttachmentsBucketName:
+  VocoderBucketName:
     Value:
-      Ref: AttachmentsBucket
+      Ref: VocoderBucket

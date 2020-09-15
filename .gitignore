@@ -7,6 +7,10 @@ package-lock.json
 
 # dependencies
 node_modules
+venv
+env
+.serverless/*
+__pycache__
 
 # testing
 coverage
@@ -39,3 +43,4 @@ amplify/.config/local-*
 amplify/backend/amplify-meta.json
 aws-exports.js
 awsconfiguration.json
+
