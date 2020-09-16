@@ -1,5 +1,0 @@
-llvmlite==0.34.0
-mat4py==0.4.3
-numba==0.51.0
-numpy==1.19.1
-scipy==1.5.2
