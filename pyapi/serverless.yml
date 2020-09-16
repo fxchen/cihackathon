@@ -1,0 +1,75 @@
+service: cihackathon-pyapi
+
+# Exclude development files
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    zip: true
+    slim: true
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, self:provider.stage}
+  # Set the table name here so we can use it while testing locally
+  #tableName: ${self:custom.stage}-algorithms
+  tableName: algorithms
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: us-east-2
+  versionFunctions: false
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-2:170914556599:table/algorithms"
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:ListBucket
+        - s3:PutObject
+      Resource:
+        - "arn:aws:s3:::*"
+
+functions:
+  hello:
+    handler: hello.lambda_handler
+    events:
+      - http:
+          method: get
+          path: hello
+    
+  # numpy:
+  #   handler: handler.main
+  #   events:
+  #     - http:
+  #         method: get
+  #         path: numpy
+
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+  # # DynamoDB
+  # - ${file(resources/dynamodb-table.yml)}
+  # S3
+  - ${file(resources/s3-bucket.yml)}
+#   # Cognito
+#   - ${file(resources/cognito-user-pool.yml)}
+#   - ${file(resources/cognito-identity-pool.yml)}
