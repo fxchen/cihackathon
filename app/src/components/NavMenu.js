@@ -20,21 +20,17 @@ function NavMenu(props) {
     !isAuthenticating && (
     <>
       <Navbar>
-        <Navbar.Brand href="#home">
-          <Logo /> CI Hackathon
+        <Navbar.Brand href="/">
+          <Logo /> Cochlear Implant Hackathon App
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
           {isAuthenticated ? (
             <>
-              <Nav.Link href="/protected">Protected</Nav.Link>
-              <Nav.Link href="/algorithms">Algorithms</Nav.Link>
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/logout">Logout</Nav.Link>
             </>
           ) : (
             <>
-              <Nav.Link href="/protected">Protected</Nav.Link>
               <Nav.Link href="/login">Login</Nav.Link>
             </>
           )}
