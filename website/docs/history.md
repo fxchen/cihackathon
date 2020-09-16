@@ -1,7 +1,7 @@
 ---
 id: history
 title: History of the CI Hackathon
-sidebar_label: History
+sidebar_label: About
 ---
 
 One of the greatest successes in the history of medicine has been the development of the cochlear implant. **Cochlear implants are amazing electrical devices that restore hearing to people who are born without hearing or lose their hearing over time.**
