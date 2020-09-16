@@ -133,8 +133,6 @@ export default function Algorithms() {
             </FormGroup>
             {algorithm.attachment && (
               <FormGroup>
-                <FormLabel>Attachment</FormLabel>
-                <FormControl.Static>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -142,7 +140,6 @@ export default function Algorithms() {
                   >
                     {formatFilename(algorithm.attachment)}
                   </a>
-                </FormControl.Static>
               </FormGroup>
             )}
             <FormGroup controlId="file">
