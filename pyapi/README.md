@@ -29,4 +29,8 @@ To deploy the list function again, we can run the following.
 
 To invoke a function using mocked data, we use the following,
 
-`serverless invoke local --function vocoder --path mocks/test.json`
+`serverless invoke local --function vocoder --path mocks/successful-test.json`
+
+## Read Logs for Function
+
+`serverless logs  --function vocoder`

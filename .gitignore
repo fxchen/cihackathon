@@ -12,6 +12,7 @@ env
 .serverless
 __pycache__
 .requirements.zip
+unzip_requirements.py
 
 # testing
 coverage
