@@ -47,11 +47,11 @@ provider:
         - "arn:aws:s3:::*"
 
 functions:
-  hello:
+  vocoder:
     handler: vocoder.lambda_handler
     events:
       - http:
-          method: get
+          method: put
           path: vocoder
 
 

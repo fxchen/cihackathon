@@ -6,76 +6,106 @@ except ImportError:
 import boto3
 import botocore
 import os
+import json
 import uuid
+import time
 import logging
-from shutil import copyfile
 from Vocoder.vocoderFunc import vocoderFunc
 
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+logger.info('#### Loading function')
 
 UPLOADS_BUCKET = 'cihackathon-algorithm-uploads'
 VOCODER_BUCKET = 'cihackathon-vocoder-outputs'
 
-print("Loading function")
-
-# Get the service resource
 s3 = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 
 
-# Pass userId and algorithmId
+class VocoderException(Exception): pass
+class DynamoDBException(Exception): pass
+class S3ObjectNotFoundException(Exception): pass
+class BotoClientException(Exception): pass
+
 def lambda_handler(event, context):
     logger.info('## ENVIRONMENT VARIABLES')
     logger.info(os.environ)
     logger.info('## EVENT')
     logger.info(event)
 
+    data = json.loads(event['body'])
+    userId = event['requestContext']['identity']['cognitoIdentityId']
+    algorithmId = data['algorithmId']
 
     # Fetch file attachment details
     table = dynamodb.Table('algorithms')
-    response = table.get_item(
-        Key={
-            'userId': 'us-east-2:41bbbe83-6a4a-4222-9528-5c901313cd4a',
-            'algorithmId': '488216b0-f901-11ea-a573-5d9008c996f7'
-        }
-    )
+    try:
+        response = table.get_item(
+            Key={
+                'userId': userId,
+                'algorithmId': algorithmId
+            }
+        )
+    except botocore.exceptions.ClientError as error:
+        raise DynamoDBException('DynamoDB item does not exist\n' + error)
+    
+    logger.info('## DYNAMODB RESPONSE')
+    logger.info(response)
     item = response['Item']
 
     # Fetch uploaded file
     key = 'private/' + item['userId'] + '/' + item['attachment']
     electrocardiogram=item['attachment']
-    print("Downloading " + UPLOADS_BUCKET + "/" + key + " to: " + electrocardiogram)
+    logger.info('S3: Downloading ' + UPLOADS_BUCKET + '/' + key + ' to: ' + electrocardiogram)
     try:
         s3.download_file(UPLOADS_BUCKET, key, electrocardiogram)
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print("The object does not exist.")
+    except botocore.exceptions.ClientError as error:
+        if error.response['Error']['Code'] == '404':
+            raise S3ObjectNotFoundException('S3 object does not exist')
         else:
-            raise
+            raise BotoClientException('S3 upload failed\n' + error)
 
     # Run vocoder
     vocoder_output = item['label'] + '.wav'
-    vocoderFunc(
-        electrocardiogram,
-        saveOutput=True,
-        outputFile=item['label']
-    )
+    try:
+        vocoderFunc(
+            electrocardiogram,
+            saveOutput=True,
+            outputFile=item['label']
+        )
+    except:
+        raise VocoderException('Vocoder error')
 
     # Upload processed output
     object_name = item['label'] + '_' + str(uuid.uuid4()) + '.wav'
-    # copyfile(electrocardiogram, vocoder_output) # Fake vocoder for testing
-    print("Uploading " + object_name + " to " + VOCODER_BUCKET)
+    logger.info('S3: Uploading ' + object_name + ' to ' + VOCODER_BUCKET)
     try:
         response = s3.upload_file(vocoder_output, VOCODER_BUCKET, object_name)
-    except botocore.exceptions.ClientError as e:
-        print("Object failed to upload.")
+    except botocore.exceptions.ClientError as error:
+        raise BotoClientException('S3 upload failed\n' + error)
 
-    return {
-        "statusCode": 200,
-        "body": "<html><body><p>Hello!</p></body></html>",
-        "headers": {
-            "Content-Type": "text/html"
-        }
+    # Replace entry with addtional details
+    try:
+        response = table.put_item(
+            Item={
+                'userId': userId,
+                'algorithmId': algorithmId,
+                'label': item['label'],
+                'attachment': item['attachment'],
+                'createdAt': item['createdAt'],
+                'vocoder_output': object_name,
+                'processedAt': int(time.time()),
+            }
+        )
+    except botocore.exceptions.ClientError as error:
+        raise DynamoDBException('Error writing DynamoDB item\n' + error)
+    logger.info('## DYNAMODB RESPONSE')
+    logger.info(response)
+
+    logger.info('#### Exiting function')
+    return { 
+        'statusCode': 200,
+        'body': json.dumps('Success')
     }

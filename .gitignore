@@ -9,8 +9,9 @@ package-lock.json
 node_modules
 venv
 env
-.serverless/*
+.serverless
 __pycache__
+.requirements.zip
 
 # testing
 coverage
