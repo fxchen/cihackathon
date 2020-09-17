@@ -25,6 +25,10 @@ module.exports = {
     },
     {
       type: 'doc',
+      id: 'presentations',
+    },
+    {
+      type: 'doc',
       id: 'audio_samples',
     },
     {
