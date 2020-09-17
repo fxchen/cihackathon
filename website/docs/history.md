@@ -1,6 +1,6 @@
 ---
 id: history
-title: History of the CI Hackathon
+title: History of the Cochlear Implant Hackathon
 sidebar_label: About
 ---
 
