@@ -4,6 +4,7 @@ title: CI Hackathon Team
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
+![](/img/Leah.jpg)
 ## Leah Muller, MD, PhD
 Leah is a neuromodulation enthusiast and passionate problem solver. Her graduate work in neural engineering centered on advancing closed-loop electrocorticographic brain machine interfaces, with special focus on speech perception in humans. She is excited to be involved in organizing this CI Hackathon, especially since cochlear implants were one of the first successful neural prosthetics!
 
