@@ -64,7 +64,7 @@ const Router = () => {
         <NavMenu current={current} />
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={AlgorithmList} />
+              <Route exact path="/" component={Login} />
               <Route exact path="/algorithms" component={AlgorithmList} />
               <Route exact path="/algorithms/:id" component={Algorithms} />
               <Route exact path="/create" component={NewAlgorithm} />
