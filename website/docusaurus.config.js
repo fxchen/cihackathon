@@ -31,13 +31,8 @@ module.exports = {
           label: 'Getting Started',
           position: 'left',
         },
-        // {
-        //   href: 'https://master.d2sumv6atptlsd.amplifyapp.com/profile/',
-        //   label: 'Register',
-        //   position: 'right',
-        // },
         {
-          href: 'https://master.d2sumv6atptlsd.amplifyapp.com/profile/',
+          href: 'https://staging-app.cihackathon.com/',
           label: 'Login',
           position: 'right',
         },
