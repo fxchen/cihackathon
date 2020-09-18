@@ -17,6 +17,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger.info('#### Loading function')
 
+PWD='/tmp/' # Change for local dev
 UPLOADS_BUCKET = 'cihackathon-algorithm-uploads'
 VOCODER_BUCKET = 'cihackathon-vocoder-outputs'
 
@@ -60,7 +61,7 @@ def lambda_handler(event, context):
     electrocardiogram=item['attachment']
     logger.info('S3: Downloading ' + UPLOADS_BUCKET + '/' + key + ' to: ' + electrocardiogram)
     try:
-        s3.download_file(UPLOADS_BUCKET, key, electrocardiogram)
+        s3.download_file(UPLOADS_BUCKET, key, PWD + electrocardiogram)
     except botocore.exceptions.ClientError as error:
         if error.response['Error']['Code'] == '404':
             raise S3ObjectNotFoundException('S3 object does not exist')
@@ -68,15 +69,15 @@ def lambda_handler(event, context):
             raise BotoClientException('S3 upload failed\n' + error)
 
     # Run vocoder
-    vocoder_output = item['label'] + '.wav'
+    vocoder_output = PWD + item['label'] + '.wav'
     try:
         vocoderFunc(
-            electrocardiogram,
+            PWD + electrocardiogram,
             saveOutput=True,
-            outputFile=item['label']
+            outputFile=PWD + item['label']
         )
     except:
-        raise VocoderException('Vocoder error')
+        raise
 
     # Upload processed output
     object_name = item['label'] + '_' + str(uuid.uuid4()) + '.wav'
