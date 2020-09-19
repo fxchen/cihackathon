@@ -8,7 +8,6 @@ import Logout from "./containers/Logout";
 import Profile from "./containers/Profile";
 import Algorithms from "./containers/Algorithms";
 import AlgorithmList from "./containers/AlgorithmList";
-import AlgorithmList2 from "./containers/AlgorithmList2";
 import NewAlgorithm from "./containers/NewAlgorithm";
 import { Auth, Logger } from "aws-amplify";
 
@@ -67,12 +66,12 @@ const Router = () => {
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/algorithms" component={AlgorithmList} />
-              <Route exact path="/algorithms2" component={AlgorithmList2} />
               <Route exact path="/algorithms/:id" component={Algorithms} />
-              <Route exact path="/create" component={NewAlgorithm} />
+              <Route exact path="/create/:label" component={NewAlgorithm} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/logout" component={Logout} />
+              <Route component={Login} />
             </Switch>
           </BrowserRouter>
         </AppContext.Provider>

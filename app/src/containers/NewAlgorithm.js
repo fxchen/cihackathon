@@ -1,20 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { API, Logger } from "aws-amplify";
 import { s3Upload } from "../libs/awsLib";
 import { useAppContext } from "../libs/contextLib";
-
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import Container from "../components/Container";
 import config from "../config";
+import entries from "../entries";
 
 const logger = new Logger("NewAlgorithm", "DEBUG");
 
 export default function NewAlgorithm(props) {
   const file = useRef(null);
   const history = useHistory();
-  const [label, setLabel] = useState("");
+  const { label } = useParams();
   const [isCreating, setIsCreating] = useState(false);
   const { isAuthenticated, isAuthenticating } = useAppContext();
 
@@ -26,10 +26,16 @@ export default function NewAlgorithm(props) {
       }
     }
     onLoad();
-  }, [isAuthenticating, isAuthenticated, props]);
+  }, [isAuthenticating, isAuthenticated, props, label]);
 
+  // todo make sure label is valid
   function validateForm() {
-    return label.length > 0;
+    for (let key in entries) {
+      if (label === key)
+        return true;
+    }
+    logger.debug("Error in createAlgorithm: invalid label " + label);
+    return false;
   }
 
   function handleFileChange(event) {
@@ -38,6 +44,13 @@ export default function NewAlgorithm(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (!file.current) {
+      alert(
+        `Please upload a file`
+      );
+      return;
+    }
 
     if (file.current && file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(
@@ -75,7 +88,7 @@ export default function NewAlgorithm(props) {
           <FormGroup controlId="label">
             <FormControl
               value={label}
-              onChange={(e) => setLabel(e.target.value)}
+              readOnly
             />
           </FormGroup>
           <FormGroup controlId="file">
@@ -90,7 +103,7 @@ export default function NewAlgorithm(props) {
             isLoading={isCreating}
             disabled={!validateForm()}
           >
-            Create
+            Upload file and submit to vocoder for processing
           </LoaderButton>
         </form>
       </Container>
