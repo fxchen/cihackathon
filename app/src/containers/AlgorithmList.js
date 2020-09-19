@@ -11,7 +11,7 @@ import { FaPlus } from "react-icons/fa";
 const logger = new Logger("AlgorithmList", "DEBUG");
 
 export default function AlgorithmList(props) {
-  const { isAuthenticated } = useAppContext();
+  const { isAuthenticating, isAuthenticated } = useAppContext();
   const [algorithms, setAlgorithms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,9 +22,6 @@ export default function AlgorithmList(props) {
     }
 
     async function onLoad() {
-      if (!isAuthenticated) {
-        return;
-      }
       try {
         const algorithms = await loadAlgorithms();
         setAlgorithms(algorithms);
@@ -35,8 +32,15 @@ export default function AlgorithmList(props) {
       setIsLoading(false);
     }
 
-    onLoad();
-  }, [isAuthenticated, isLoading, props]);
+    if (!isAuthenticating && !isAuthenticated) {
+      logger.debug('user is not authenticated')
+      props.history.push("/login");
+    }
+    // wait for authentication before loading algorithms
+    if (!isAuthenticating && isAuthenticated) {
+      onLoad();
+    }
+  }, [isAuthenticating, isAuthenticated, isLoading, props]);
 
   function renderAlgorithmsList(algorithms) {
     return [{}].concat(algorithms).map(
@@ -60,7 +64,8 @@ export default function AlgorithmList(props) {
   }
 
   return (
-    <>
+    !isAuthenticating && (
+      <>
       <Container>
         <div className="Algorithms">
           <div className="algorithm">
@@ -90,5 +95,6 @@ export default function AlgorithmList(props) {
         </div>
       </Container>
     </>
+    )
   );
 }

@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { API, Logger } from "aws-amplify";
 import { s3Upload } from "../libs/awsLib";
+import { useAppContext } from "../libs/contextLib";
 
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
@@ -10,11 +11,22 @@ import config from "../config";
 
 const logger = new Logger("NewAlgorithm", "DEBUG");
 
-export default function NewAlgorithm() {
+export default function NewAlgorithm(props) {
   const file = useRef(null);
   const history = useHistory();
   const [label, setLabel] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const { isAuthenticated, isAuthenticating } = useAppContext();
+
+  useEffect(() => {
+    function onLoad() {
+      if (!isAuthenticating && !isAuthenticated) {
+        logger.debug('user is not authenticated')
+        props.history.push("/login");
+      }
+    }
+    onLoad();
+  }, [isAuthenticating, isAuthenticated, props]);
 
   function validateForm() {
     return label.length > 0;
@@ -56,7 +68,8 @@ export default function NewAlgorithm() {
   }
 
   return (
-    <>
+    !isAuthenticating && (
+      <>
       <Container>
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="label">
@@ -82,5 +95,6 @@ export default function NewAlgorithm() {
         </form>
       </Container>
     </>
+    )
   );
 }

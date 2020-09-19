@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { API, Storage, Logger } from "aws-amplify";
 import { useParams, useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
-
+import { useAppContext } from "../libs/contextLib";
 import Container from "../components/Container";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
@@ -11,7 +11,7 @@ import "./Algorithms.css";
 
 const logger = new Logger("Algorithms", "DEBUG");
 
-export default function Algorithms() {
+export default function Algorithms(props) {
   const file = useRef(null);
   const { id } = useParams();
   const history = useHistory();
@@ -19,6 +19,7 @@ export default function Algorithms() {
   const [label, setLabel] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { isAuthenticating, isAuthenticated } = useAppContext();
 
   useEffect(() => {
     function loadAlgorithm() {
@@ -41,8 +42,15 @@ export default function Algorithms() {
       }
     }
 
-    onLoad();
-  }, [id]);
+    if (!isAuthenticating && !isAuthenticated) {
+      logger.debug('user is not authenticated')
+      props.history.push("/login");
+    }
+    // wait for authentication before loading algorithms
+    if (!isAuthenticating && isAuthenticated) {
+      onLoad();
+    }
+  }, [isAuthenticating, isAuthenticated, isLoading, props, id]);
 
   function validateForm() {
     return label.length > 0;
@@ -120,54 +128,58 @@ export default function Algorithms() {
   }
 
   return (
-    <Container>
-      <div className="Algorithms">
-        {algorithm && (
-          <form onSubmit={handleSubmit}>
-            <FormGroup controlId="label">
-              <FormControl
-                value={label}
-                componentclass="textarea"
-                onChange={(e) => setLabel(e.target.value)}
-              />
-            </FormGroup>
-            {algorithm.attachment && (
-              <FormGroup>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={algorithm.attachmentURL}
-                  >
-                    {formatFilename(algorithm.attachment)}
-                  </a>
+    !isAuthenticating && (
+    <>
+      <Container>
+        <div className="Algorithms">
+          {algorithm && (
+            <form onSubmit={handleSubmit}>
+              <FormGroup controlId="label">
+                <FormControl
+                  value={label}
+                  componentclass="textarea"
+                  onChange={(e) => setLabel(e.target.value)}
+                />
               </FormGroup>
-            )}
-            <FormGroup controlId="file">
-              {!algorithm.attachment && <FormLabel>Attachment</FormLabel>}
-              <FormControl onChange={handleFileChange} type="file" />
-            </FormGroup>
-            <LoaderButton
-              block
-              type="submit"
-              //bsSize="large"
-              //bsStyle="primary"
-              isLoading={isLoading}
-              disabled={!validateForm()}
-            >
-              Save
-            </LoaderButton>
-            <LoaderButton
-              block
-              //bsSize="large"
-              //bsStyle="danger"
-              onClick={handleDelete}
-              isLoading={isDeleting}
-            >
-              Delete
-            </LoaderButton>
-          </form>
-        )}
-      </div>
-    </Container>
+              {algorithm.attachment && (
+                <FormGroup>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={algorithm.attachmentURL}
+                    >
+                      {formatFilename(algorithm.attachment)}
+                    </a>
+                </FormGroup>
+              )}
+              <FormGroup controlId="file">
+                {!algorithm.attachment && <FormLabel>Attachment</FormLabel>}
+                <FormControl onChange={handleFileChange} type="file" />
+              </FormGroup>
+              <LoaderButton
+                block
+                type="submit"
+                //bsSize="large"
+                //bsStyle="primary"
+                isLoading={isLoading}
+                disabled={!validateForm()}
+              >
+                Save
+              </LoaderButton>
+              <LoaderButton
+                block
+                //bsSize="large"
+                //bsStyle="danger"
+                onClick={handleDelete}
+                isLoading={isDeleting}
+              >
+                Delete
+              </LoaderButton>
+            </form>
+          )}
+        </div>
+      </Container>
+    </>
+    )
   );
 }
