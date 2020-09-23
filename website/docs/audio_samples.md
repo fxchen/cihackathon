@@ -19,4 +19,4 @@ One of the hardest things for CI users is a noisy environment, so distinguishing
 
 ### Music
 
-CI users usually do not enjoy music to the same extent as prior to implant. An improvement in music processing would greatly improve CI users’ experience.
+Cochlear implant users usually do not enjoy music to the same extent as prior to implant. An improvement in music processing would greatly improve CI users’ experience.
