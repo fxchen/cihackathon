@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ![](/img/Aaron.jpg)
 ## Aaron Tward, PhD, MD
-Dr. Aaron Tward is a surgeon who specializes in diagnosing and treating ear and skull base disorders. In patient care, his interests include cochlear implantation, managing benign and malignant tumors of the skull base, surgery for chronic otitis media, stapedectomy, repair of superior semicircular canal dehiscence and endoscopic surgeries of the ear and skull base. Tward earned both a doctorate in biomedical sciences and his medical degree from UCSF. At Harvard Medical School, he completed a residency in otolaryngology – head and neck surgery, followed by a fellowship in otology, neurotology and skull base surgery.
+Aaron Tward is an Associate Professor of Otolaryngology-Head and Neck Surgery at the University of California San Francisco.  His clinical practice is focused on Otology, Neurotology, and Skull Base Surgery where he cares for patients with complex problems of the ear and skull base.  He is particularly passionate about cochlear implantation and the development of new technologies for hearing restoration.  His research interests also include the application of molecular biology and computational techniques to address problems related to the auditory system and cancer.
 
 ![](/img/Leah.jpg)
 ## Leah Muller, MD, PhD
