@@ -9,7 +9,7 @@ Register your team to participate in the hackathon, or simply register to judge 
 
 ## Learn
 
-Read or watch our presentations (Background) to get up to speed on how cochlear implants work, how to participate, and what resources are available to you.
+Read or watch our presentations to get up to speed on how cochlear implants work, how to participate, and what resources are available to you.
 
 ## Hack
 
