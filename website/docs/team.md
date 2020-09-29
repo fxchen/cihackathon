@@ -26,7 +26,7 @@ Phillipp Hehrmann trained as a computer scientist and holds a PhD from the UCL G
 
 ![](/img/Dean.png)
 ## Dean Swan
-Dean Swan loves audio signal processing and making things sound better. Dean has worked in audio DSP echo cancellation and microphone arrays before joining Advanced Bionics in 2014. At AB Dean is working to improve sound coding and binaural hearing for cochlear implant recipients.
+Dean Swan loves audio signal processing and making things sound better. Dean has worked in audio DSP echo cancellation and microphone arrays before joining Advanced Bionics in 2014. At AB, Dean is working to improve sound coding and binaural hearing for cochlear implant recipients.
 
 ## Daniel Alfsmann, PhD
 Daniel deepened his passion for signal processing, neurostimulation and hearing instruments during his doctorate in electrical engineering at Ruhr-Universität Bochum, Germany. With this proclivity, he has been developing cochlear implant speech processor DSP firmware at Advanced Bionics since 2013. He is now leading both the product development and research efforts in the signal processing and electrical stimulation domains. Part of his mission has always been to push the limits of CI sound perception for recipients.
