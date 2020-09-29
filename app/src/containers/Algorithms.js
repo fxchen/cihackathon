@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import ReactAudioPlayer from "react-audio-player";
 import { API, Storage, Logger } from "aws-amplify";
 import { useParams, useHistory } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel } from "react-bootstrap";
@@ -9,6 +10,7 @@ import { s3Upload } from "../libs/awsLib";
 import config from "../config";
 import "./Algorithms.css";
 
+const VOCODER_BUCKET_URL = config.VOCODER_BUCKET_URL;
 const logger = new Logger("Algorithms", "DEBUG");
 
 export default function Algorithms(props) {
@@ -29,10 +31,13 @@ export default function Algorithms(props) {
     async function onLoad() {
       try {
         const algorithm = await loadAlgorithm();
-        const { label, attachment } = algorithm;
+        const { label, attachment, vocoder_output } = algorithm;
 
         if (attachment) {
           algorithm.attachmentURL = await Storage.vault.get(attachment);
+        }
+        if (vocoder_output) {
+          algorithm.vocoderOutputURL = VOCODER_BUCKET_URL + vocoder_output;
         }
 
         setLabel(label);
@@ -43,7 +48,7 @@ export default function Algorithms(props) {
     }
 
     if (!isAuthenticating && !isAuthenticated) {
-      logger.debug('user is not authenticated')
+      logger.debug("user is not authenticated");
       props.history.push("/login");
     }
     // wait for authentication before loading algorithms
@@ -129,20 +134,18 @@ export default function Algorithms(props) {
 
   return (
     !isAuthenticating && (
-    <>
-      <Container>
-        <div className="Algorithms">
-          {algorithm && (
-            <form onSubmit={handleSubmit}>
-              <FormGroup controlId="label">
-                <FormControl
-                  value={label}
-                  componentclass="textarea"
-                  onChange={(e) => setLabel(e.target.value)}
-                />
-              </FormGroup>
-              {algorithm.attachment && (
-                <FormGroup>
+      <>
+        <Container>
+          <div className="Algorithms">
+            {algorithm && (
+              <form onSubmit={handleSubmit}>
+                <FormGroup controlId="label">
+                  <FormControl value={label} readOnly />
+                </FormGroup>
+                {algorithm.attachment && (
+                  <FormGroup>
+                    <b>Source</b>
+                    <br />
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -150,36 +153,46 @@ export default function Algorithms(props) {
                     >
                       {formatFilename(algorithm.attachment)}
                     </a>
+                  </FormGroup>
+                )}
+                {algorithm.vocoder_output && (
+                  <FormGroup>
+                    <b>Vocoder Output</b>
+                    <br />
+                    <ReactAudioPlayer
+                      src={algorithm.vocoderOutputURL}
+                      controls
+                    />
+                  </FormGroup>
+                )}
+                <FormGroup controlId="file">
+                  {!algorithm.attachment && <FormLabel>Attachment</FormLabel>}
+                  <FormControl onChange={handleFileChange} type="file" />
                 </FormGroup>
-              )}
-              <FormGroup controlId="file">
-                {!algorithm.attachment && <FormLabel>Attachment</FormLabel>}
-                <FormControl onChange={handleFileChange} type="file" />
-              </FormGroup>
-              <LoaderButton
-                block
-                type="submit"
-                //bsSize="large"
-                //bsStyle="primary"
-                isLoading={isLoading}
-                disabled={!validateForm()}
-              >
-                Save
-              </LoaderButton>
-              <LoaderButton
-                block
-                //bsSize="large"
-                //bsStyle="danger"
-                onClick={handleDelete}
-                isLoading={isDeleting}
-              >
-                Delete
-              </LoaderButton>
-            </form>
-          )}
-        </div>
-      </Container>
-    </>
+                <LoaderButton
+                  block
+                  type="submit"
+                  //bsSize="large"
+                  //bsStyle="primary"
+                  isLoading={isLoading}
+                  disabled={!validateForm()}
+                >
+                  Save
+                </LoaderButton>
+                <LoaderButton
+                  block
+                  //bsSize="large"
+                  //bsStyle="danger"
+                  onClick={handleDelete}
+                  isLoading={isDeleting}
+                >
+                  Delete
+                </LoaderButton>
+              </form>
+            )}
+          </div>
+        </Container>
+      </>
     )
   );
 }

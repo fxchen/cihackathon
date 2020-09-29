@@ -1,4 +1,5 @@
 import React from "react";
+import ReactAudioPlayer from "react-audio-player";
 import { Button } from "react-bootstrap";
 
 export default function EntryCard({
@@ -6,6 +7,7 @@ export default function EntryCard({
   label,
   description,
   createdAt,
+  vocoderOutputURL,
   ...props
 }) {
   let border = "card mb-3";
@@ -36,6 +38,11 @@ export default function EntryCard({
                     View Details
                   </Button>
                 </div>
+                {vocoderOutputURL && (
+                  <div className="col">
+                    <ReactAudioPlayer src={`${vocoderOutputURL}`} controls />
+                  </div>
+                )}
               </div>
             </div>
             <div className="card-footer text-muted">

@@ -35,6 +35,9 @@ const prod = {
 // Default to dev if not set
 const config = process.env.REACT_APP_STAGE === "prod" ? prod : dev;
 
+// Set vocoder bucket location for playback
+config.VOCODER_BUCKET_URL = "https://cihackathon-vocoder-outputs.s3.us-east-2.amazonaws.com/";
+
 export default {
   // Add common config values here
   MAX_ATTACHMENT_SIZE: 5000000,

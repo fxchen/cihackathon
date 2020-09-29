@@ -4,8 +4,10 @@ import { useAppContext } from "../libs/contextLib";
 import Container from "../components/Container";
 import EntryCard from "../components/EntryCard";
 import entries from '../entries';
+import config from "../config";
 import "./AlgorithmList.css";
 
+const VOCODER_BUCKET_URL = config.VOCODER_BUCKET_URL;
 const logger = new Logger("AlgorithmList", "DEBUG");
 
 export default function AlgorithmList(props) {
@@ -55,10 +57,15 @@ export default function AlgorithmList(props) {
 
   function renderRow(tag) {
     let cards = [];
+    let vocoderOutputURL = "";
     for (let key in entries) {
       let algorithm = entries[key];
       if (algorithm.tag !== tag) continue;
       if (algorithm.algorithmId) {
+        if (algorithm.vocoder_output) {
+          vocoderOutputURL = VOCODER_BUCKET_URL + algorithm.vocoder_output
+          logger.debug(vocoderOutputURL)
+        }
         cards.push(
           <div key={algorithm.label} className="col">
             <EntryCard
@@ -66,6 +73,7 @@ export default function AlgorithmList(props) {
               label={algorithm.label}
               description={algorithm.description}
               createdAt={algorithm.createdAt}
+              vocoderOutputURL={vocoderOutputURL}
             />
           </div>
         );
