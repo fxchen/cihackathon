@@ -13,10 +13,6 @@ module.exports = {
     },
     {
       type: 'doc',
-      id: 'judging',
-    },
-    {
-      type: 'doc',
       id: 'team',
     },
     {
@@ -35,6 +31,10 @@ module.exports = {
       type: 'category',
       label: 'Code',
       items: ['python', 'matlab'],
+    },
+    {
+      type: 'doc',
+      id: 'judging',
     },
   ],
 };
