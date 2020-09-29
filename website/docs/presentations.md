@@ -1,6 +1,6 @@
 ---
 id: presentations
-title: Background
+title: Learn
 ---
 ## Introduction to the hackathon
 pdf of presentation goes here +
