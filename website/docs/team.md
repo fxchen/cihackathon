@@ -6,7 +6,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## _UCSF_
 
-
+![](/img/Aaron.jpg)
 ## Aaron Tward, PhD, MD
 Aaron Tward is an Associate Professor of Otolaryngology-Head and Neck Surgery at the University of California San Francisco.  His clinical practice is focused on Otology, Neurotology, and Skull Base Surgery where he cares for patients with complex problems of the ear and skull base.  He is particularly passionate about cochlear implantation and the development of new technologies for hearing restoration.  His research interests also include the application of molecular biology and computational techniques to address problems related to the auditory system and cancer.
 
@@ -30,7 +30,7 @@ Jordan is a postdoctoral research associate studying auditory perception at the 
 ## Phillipp Hehrmann, PhD
 Phillipp Hehrmann trained as a computer scientist and holds a PhD from the UCL Gatsby Computational Neuroscience Unit. He has been working as a research engineer for Advanced Bionics since 2011, first at the European Research Center in Germany, and more recently at the US headquarters in the sunny Hinterland of LA. Driven by a deep fascination with the wondrous sense that is hearing, his work revolves around speech enhancement, binaural listening and efficient sound coding for cochlear implants for the continued improvement of CI recipients' listening experience and quality of life.
 
-
+![](/img/Dean.jpg)
 ## Dean Swan
 Dean Swan loves audio signal processing and making things sound better. Dean has worked in audio DSP echo cancellation and microphone arrays before joining Advanced Bionics in 2014. At AB, Dean is working to improve sound coding and binaural hearing for cochlear implant recipients.
 
