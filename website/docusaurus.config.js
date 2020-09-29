@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           href: 'https://staging-app.cihackathon.com/',
-          label: 'Login',
+          label: 'Login/Register',
           position: 'right',
         },
       ],
