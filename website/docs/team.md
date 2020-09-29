@@ -22,7 +22,7 @@ After obtaining his PhD from the University of Cambridge and leading a research 
 
 ![](/img/Jordan.jpg)
 ## Jordan Beim, PhD
-Jordan is a postdoctoral research associate studying auditory perception at the University of Minnesota as part of the Center for Applied and Translational Sensory Sciences (CATSS). His recent work focuses on understanding the perception of sound by cochlear implant users, with an emphasis on trying to better understand and represent the quality of sound information transmitted to the brain via the cochlear implant.His passion for research with direct applications led him to join the CI Hackathon team where he helped to develop the CI simulation toolboxes for use in the competition. He is excited to work as a part of this multidisciplinary team committedto producing the next breakthrough in cochlear implant technology.
+Jordan is a postdoctoral research associate studying auditory perception at the University of Minnesota as part of the Center for Applied and Translational Sensory Sciences (CATSS). His recent work focuses on understanding the perception of sound by cochlear implant users, with an emphasis on trying to better understand and represent the quality of sound information transmitted to the brain via the cochlear implant.His passion for research with direct applications led him to join the CI Hackathon team where he helped to develop the CI simulation toolboxes for use in the competition. He is excited to work as a part of this multidisciplinary team committed to producing the next breakthrough in cochlear implant technology.
 
 # Advanced Bionics
 
