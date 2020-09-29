@@ -8,6 +8,8 @@ link to YouTube video of presentation
 
 ## High level overview of hackathon
 
+## Operating in the CIHack application
+
 ## Cochlear Implants and Hearing
 
 ## Base code
