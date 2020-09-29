@@ -17,6 +17,8 @@ Read or watch our presentations to get up to speed on how cochlear implants work
 
 2. Edit the code (or create your own!) to improve the auditory output. Work in Matlab, Python, or any other language you want. 
 
-3. Run your output matrix through our vocoder (in Python or Matlab).
+3. Test your algorithm on our acoustic inputs.
 
-3. Listen to your audio output as it would sound through a cochlear implant.
+4. Run your output matrix through our vocoder (in Python or Matlab).
+
+5. Listen to your audio output as it would sound through a cochlear implant.
