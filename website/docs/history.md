@@ -1,7 +1,7 @@
 ---
 id: history
 title: History of the Cochlear Implant Hackathon
-sidebar_label: About
+sidebar_label: History
 ---
 
 One of the greatest successes in the history of medicine has been the development of the cochlear implant. **Cochlear implants are amazing electrical devices that restore hearing to people who are born without hearing or lose their hearing over time.**
