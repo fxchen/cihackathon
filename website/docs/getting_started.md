@@ -4,13 +4,16 @@ title: Getting Started
 sidebar_label: Getting Started
 ---
 
-**Learn**
+## Learn
+
 Read or watch our presentations to get up to speed on how cochlear implants work, how to participate, and what resources are available to you.
 
-**Register**
+## Register
+
 Register your team to participate in the hackathon, or just register to judge hackers' entries. 
 
-**Hack**
+## Hack
+
 1. Download base code in Matlab or Python. Find all code from our [Code page](https://ci-hackathon.squarespace.com/code)
 
 2. Edit the code (or create your own!) to improve the auditory output. Work in Matlab, Python, or any other language you want. 
