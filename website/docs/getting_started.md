@@ -3,14 +3,13 @@ id: getting_started
 title: Getting Started
 sidebar_label: Getting Started
 ---
+## Register
+
+Register your team to participate in the hackathon, or just register to judge hackers' entries. 
 
 ## Learn
 
 Read or watch our presentations to get up to speed on how cochlear implants work, how to participate, and what resources are available to you.
-
-## Register
-
-Register your team to participate in the hackathon, or just register to judge hackers' entries. 
 
 ## Hack
 
