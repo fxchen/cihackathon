@@ -4,7 +4,7 @@ title: CI Hackathon Team
 ---
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-# UCSF
+## _UCSF_
 
 ![](/img/Aaron.jpg)
 ## Aaron Tward, PhD, MD
@@ -14,7 +14,7 @@ Aaron Tward is an Associate Professor of Otolaryngology-Head and Neck Surgery at
 ## Leah Muller, MD, PhD
 Leah is a neuromodulation enthusiast and passionate problem solver. Her graduate work in neural engineering centered on advancing closed-loop electrocorticographic brain machine interfaces, with special focus on speech perception in humans. She is excited to be involved in organizing this CI Hackathon, especially since cochlear implants were one of the first successful neural prosthetics!
 
-# University of Minnesota
+## _University of Minnesota_
 
 ![](/img/Andrew.jpg)
 ## Andrew Oxenham, PhD
@@ -24,7 +24,7 @@ After obtaining his PhD from the University of Cambridge and leading a research 
 ## Jordan Beim, PhD
 Jordan is a postdoctoral research associate studying auditory perception at the University of Minnesota as part of the Center for Applied and Translational Sensory Sciences (CATSS). His recent work focuses on understanding the perception of sound by cochlear implant users, with an emphasis on trying to better understand and represent the quality of sound information transmitted to the brain via the cochlear implant.His passion for research with direct applications led him to join the CI Hackathon team where he helped to develop the CI simulation toolboxes for use in the competition. He is excited to work as a part of this multidisciplinary team committed to producing the next breakthrough in cochlear implant technology.
 
-# Advanced Bionics
+## _Advanced Bionics_
 
 ![](/img/Phillipp.jpg)
 ## Phillipp Hehrmann, PhD
