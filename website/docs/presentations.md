@@ -1,9 +1,9 @@
 ---
 id: presentations
-title: Presentations
+title: Background
 ---
 ## Introduction to the hackathon
-pdf of presentation
+pdf of presentation goes here +
 link to YouTube video of presentation
 
 ## High level overview of hackathon
