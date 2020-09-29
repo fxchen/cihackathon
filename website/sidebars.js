@@ -8,24 +8,14 @@
 module.exports = {
   sidebar: [
     {
-      type: 'doc',
-      id: 'history',
+      type: 'category',
+      label: 'About',
+      items: ['history', 'team'],
     },
     {
-      type: 'doc',
-      id: 'team',
-    },
-    {
-      type: 'doc',
-      id: 'getting_started',
-    },
-    {
-      type: 'doc',
-      id: 'presentations',
-    },
-    {
-      type: 'doc',
-      id: 'audio_samples',
+      type: 'category',
+      label: 'Getting Started',
+      items: ['getting_started', 'presentations', 'audio_samples'],
     },
     {
       type: 'category',
