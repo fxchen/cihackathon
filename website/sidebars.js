@@ -10,7 +10,7 @@ module.exports = {
     {
       type: 'category',
       label: 'About',
-      items: ['history', 'team'],
+      items: ['history', 'team', 'cochlear_implants'],
     },
     {
       type: 'category',
