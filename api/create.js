@@ -20,10 +20,14 @@ export const main = handler(async (event, context) => {
       label: data.label,
       attachment: data.attachment,
       createdAt: Date.now(),
+      vocoderStatus: "Submitted for processing"
     },
   };
 
   await dynamoDb.put(params);
+
+  // Trigger Lambda function to process attachment file
+  // https://www.sqlshack.com/calling-an-aws-lambda-function-from-another-lambda-function/
 
   return params.Item;
 });
