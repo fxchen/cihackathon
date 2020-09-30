@@ -9,7 +9,6 @@ link to YouTube video of presentation
 ## High level overview of hackathon
 ![](/img/High_level_overview.pdf)
 
-
 ## Operating in the CIHack application
 
 ## Cochlear Implants and Hearing
