@@ -15,7 +15,7 @@ module.exports = {
     {
       type: 'category',
       label: 'Getting Started',
-      items: ['getting_started', 'presentations', 'audio_samples'],
+      items: ['steps', 'presentations', 'audio_samples'],
     },
     {
       type: 'category',
