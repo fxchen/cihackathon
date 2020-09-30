@@ -1,7 +1,7 @@
 ---
-id: getting_started
+id: steps
 title: Steps
-sidebar_label: Getting Started
+sidebar_label: Steps
 ---
 ## Register
 
