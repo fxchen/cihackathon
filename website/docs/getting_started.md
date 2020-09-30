@@ -15,7 +15,7 @@ Read or watch our presentations to get up to speed on how cochlear implants work
 
 1. Download base code in Matlab or Python. Find all code from our Code section.
 
-2. Edit the code (or create your own!) to improve the auditory output. Work in Matlab, Python, or any other language you want. 
+2. Edit the code (or create your own from scratch) to improve the auditory output. Work in Matlab, Python, or any other language you want. 
 
 3. Test your algorithm on our acoustic inputs.
 
