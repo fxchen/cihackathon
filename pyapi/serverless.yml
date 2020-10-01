@@ -49,7 +49,9 @@ provider:
         - s3:ListBucket
         - s3:PutObject
       Resource:
-        - "arn:aws:s3:::*"
+        Fn::Join:
+           - ""
+           - - "arn:aws:s3:::cihackathon-vocoder-outputs"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in vocoder.py
