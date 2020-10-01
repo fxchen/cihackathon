@@ -32,6 +32,12 @@ provider:
   timeout: 60
   versionFunctions: false
 
+  # These environment variables are made available to our functions
+  # under process.env.
+  environment:
+    VocoderBucketName:
+      Ref: VocoderBucket
+
   iamRoleStatements:
     - Effect: Allow
       Action:
