@@ -74,6 +74,7 @@ export default function AlgorithmList(props) {
               description={algorithm.description}
               createdAt={algorithm.createdAt}
               vocoderOutputURL={vocoderOutputURL}
+              vocoderStatus={algorithm.vocoderStatus}
             />
           </div>
         );

@@ -43,11 +43,20 @@ export default function NewAlgorithm(props) {
   }
 
   async function handleSubmit(event) {
+    let allowedExtensions = /(\.npz|\.h5)$/i; 
+
     event.preventDefault();
 
     if (!file.current) {
       alert(
         `Please upload a file`
+      );
+      return;
+    }
+
+    if (!allowedExtensions.exec(file.current.name)) {
+      alert(
+        `Unsuppported file type, please upload .npz .h5`
       );
       return;
     }
@@ -92,7 +101,7 @@ export default function NewAlgorithm(props) {
             />
           </FormGroup>
           <FormGroup controlId="file">
-            <FormLabel>Attachment</FormLabel>
+            <FormLabel>Supported file types .npz .h5</FormLabel>
             <FormControl onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton

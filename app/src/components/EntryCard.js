@@ -8,6 +8,7 @@ export default function EntryCard({
   description,
   createdAt,
   vocoderOutputURL,
+  vocoderStatus,
   ...props
 }) {
   let border = "card mb-3";
@@ -20,7 +21,9 @@ export default function EntryCard({
           <h5 className="card-title">{label}</h5>
           <h6 className="card-subtitle text-muted">{description}</h6>
         </div>
+
         {props.children}
+
         {!id && (
           <div className="card-body">
             <Button variant="outline-primary" href={`/create/${label}`}>
@@ -32,21 +35,25 @@ export default function EntryCard({
         {id && (
           <>
             <div className="card-body text-left">
-              <div className="row">
-                <div className="col">
+              {vocoderOutputURL && (
+                <>
+                  <div className="col text-center">
+                    <ReactAudioPlayer src={`${vocoderOutputURL}`} controls />
+                  </div>
+                  <hr />
+                </>
+              )}
+
+              <div className="row no-gutters">
+                <div className="col-8 align-bottom text-left">
+                  <h6>{new Date(createdAt).toDateString()} - {vocoderStatus}</h6>
+                </div>
+                <div className="col-4 text-right">
                   <Button variant="primary" href={`/algorithms/${id}`}>
                     View Details
                   </Button>
                 </div>
-                {vocoderOutputURL && (
-                  <div className="col">
-                    <ReactAudioPlayer src={`${vocoderOutputURL}`} controls />
-                  </div>
-                )}
               </div>
-            </div>
-            <div className="card-footer text-muted">
-              Created {new Date(createdAt).toLocaleString()}
             </div>
           </>
         )}

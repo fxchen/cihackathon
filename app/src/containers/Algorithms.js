@@ -76,9 +76,17 @@ export default function Algorithms(props) {
   }
 
   async function handleSubmit(event) {
+    let allowedExtensions = /(\.npz|\.h5)$/i; 
     let attachment;
 
     event.preventDefault();
+
+    if (!allowedExtensions.exec(file.current.name)) {
+      alert(
+        `Unsuppported file type, please upload .npz .h5`
+      );
+      return;
+    }
 
     if (file.current && file.current.size > config.MAX_ATTACHMENT_SIZE) {
       alert(
