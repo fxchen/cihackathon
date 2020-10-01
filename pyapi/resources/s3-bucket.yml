@@ -2,6 +2,7 @@ Resources:
   VocoderBucket:
     Type: AWS::S3::Bucket
     Properties:
+      BucketName: VocoderBucketName # Might need to be Ref, this should work
       # Set the CORS policy
       CorsConfiguration:
         CorsRules:
@@ -16,6 +17,20 @@ Resources:
               - DELETE
               - HEAD
             MaxAge: 3000
+
+  VocoderBucketAllowPublicReadPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref VocoderBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - "s3:GetObject"
+            Resource: 
+              - !Join ['/', [!Ref VocoderBucket, 'public']]
+            Principal: "*"
 
 # Print out the name of the bucket that is created
 Outputs:
